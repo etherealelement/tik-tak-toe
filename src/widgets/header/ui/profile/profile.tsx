@@ -1,14 +1,13 @@
 import React from 'react';
 import {User} from "@/entities/user";
-import {Arrow} from "@/shared/icons/Arrow";
+import {Arrow} from "../../../../shared/icons/arrow";
 
 
 export const Profile = () =>
 {
     return (
-        <button className={"flex gap-4 items-center hover: text-blue-950"}>
+        <button>
             <User></User>
-            <Arrow color={"primary"}></Arrow>
         </button>
     );
 };
