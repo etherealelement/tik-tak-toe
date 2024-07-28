@@ -1,3 +1,25 @@
 {
-  "extends": "next/core-web-vitals"
+  "extends": "next/core-web-vitals",
+  "plugins": ["fsd-import-linter"],
+  "rules": {
+    "fsd-import-linter/path-checker-fsd": ["error", { "alias": "@" }],
+    "fsd-import-linter/public-api-imports": [
+      "error",
+      {
+        "alias": "@",
+        "testFilesPatterns": [
+          "**/*.test.*",
+          "**/*.stories.*",
+          "**/StoreDecorator.tsx"
+        ]
+      }
+    ],
+    "fsd-import-linter/fsd-layer-imports": [
+      "error",
+      {
+        "alias": "@",
+        "ignoreImportPatterns": ["**/StoreProvider", "**/testing"]
+      }
+    ]
+  }
 }
