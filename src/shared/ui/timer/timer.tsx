@@ -1,15 +1,29 @@
-import React, {FC} from 'react';
+import React, { FC } from 'react';
+import { clsx } from 'clsx';
 
 type Props = {
-    start: boolean;
-    className?: string;
-    children: React.ReactNode;
-}
+	isLowTime: boolean;
+	className?: string;
+	isTimerRunning: boolean;
+	children: React.ReactNode;
+};
 
-export const Timer: FC<Props> = ({className, children, start, ...props}) => {
-    return (
-        <span className="text-white text-lg font-semibold" {...props}>
-            {children}
-        </span>
-    );
+export const Timer: FC<Props> = ({
+	className,
+	isLowTime,
+	isTimerRunning,
+	children,
+	...props
+}) => {
+	return (
+		<span
+			className={clsx('text-white text-lg font-semibold w-[60px]', className, {
+				'text-red-500': isLowTime,
+				'opacity-50': !isTimerRunning,
+			})}
+			{...props}
+		>
+			{children}
+		</span>
+	);
 };

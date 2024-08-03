@@ -5,6 +5,7 @@ import { PlayerInfo } from './player-info/player-info';
 
 type Props = {
 	className?: string;
+	currentMove: GameSymbols;
 	playersCount: number;
 };
 
@@ -21,25 +22,30 @@ const players = [
 		name: 'Player2',
 		rating: 2230,
 		avatar: 'https://i.pravatar.cc/300?img=4',
-		symbol: GAME_SYMBOLS.CROSS,
+		symbol: GAME_SYMBOLS.CIRCLE,
 	},
 	{
 		id: 3,
 		name: 'Player3',
 		rating: 3230,
 		avatar: 'https://i.pravatar.cc/300?img=3',
-		symbol: GAME_SYMBOLS.CROSS,
+		symbol: GAME_SYMBOLS.SQUARE,
 	},
 	{
 		id: 4,
 		name: 'Player4',
 		rating: 4230,
 		avatar: 'https://i.pravatar.cc/300?img=2',
-		symbol: GAME_SYMBOLS.CROSS,
+		symbol: GAME_SYMBOLS.TRIANGLE,
 	},
 ];
 
-export const GameInfo: FC<Props> = ({ playersCount, className, ...props }) => {
+export const GameInfo: FC<Props> = ({
+	playersCount,
+	currentMove,
+	className,
+	...props
+}) => {
 	return (
 		<div
 			className={clsx(
@@ -48,14 +54,15 @@ export const GameInfo: FC<Props> = ({ playersCount, className, ...props }) => {
 			)}
 			{...props}
 		>
-			{players.slice(0, playersCount).map(item => (
+			{players.slice(0, playersCount).map(player => (
 				<PlayerInfo
-					key={item.id}
-					rating={item.rating}
-					name={item.name}
-					isRight={item.id % 2 === 0}
-					symbol={item.symbol}
-					avatar={item.avatar}
+					isTimerRunning={currentMove === player.symbol}
+					key={player.id}
+					rating={player.rating}
+					name={player.name}
+					isRight={player.id % 2 === 0}
+					symbol={player.symbol}
+					avatar={player.avatar}
 				></PlayerInfo>
 			))}
 		</div>
