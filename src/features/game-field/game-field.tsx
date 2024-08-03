@@ -1,24 +1,23 @@
 'use client';
-import React, { FC, useState } from 'react';
-import { type GameMove } from '@/shared/constants';
+import React, { FC } from 'react';
 
 import { GameFieldLayout } from './ui/game-field-layout';
 import { GameMoveInfo } from './ui/game-move-info';
 import { Button } from '@/shared/ui-kit/button';
 import { GameGrid } from './ui/game-grid';
 import { GameCell } from './ui/game-cell';
-import { GAME_SYMBOLS } from '@/shared/constants';
 import { GameSymbol } from '@/shared/ui/game-symbol';
 
-import { MOVE_ORDER } from '@/shared/constants';
 import { useGameField } from './model/useGameField';
 
 type Props = {
 	className?: string;
+	playersCount: number;
 };
 
-export const GameField: FC<Props> = ({ className, ...props }) => {
-	const { cells, currentMove, handleClickCell, nextMove } = useGameField();
+export const GameField: FC<Props> = ({ className, playersCount, ...props }) => {
+	const { cells, currentMove, handleClickCell, nextMove } =
+		useGameField(playersCount);
 
 	const actions = (
 		<>
