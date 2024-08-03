@@ -4,7 +4,7 @@ import { GameMove } from '@/shared/constants';
 
 import { MOVE_ORDER } from '@/shared/constants';
 
-export const useGameField = () => {
+export const useGameField = (playersCount: number) => {
 	const [{ cells, currentMove }, setGameState] = useState<{
 		cells: GameMove[];
 		currentMove: GameMove;
@@ -14,10 +14,12 @@ export const useGameField = () => {
 	}));
 
 	const getNextMove = (
-		currentMove: (typeof MOVE_ORDER)[number]
+		currentMove: (typeof MOVE_ORDER)[number],
+		playersCount: number
 	): (typeof MOVE_ORDER)[number] => {
-		const nextMoveIndex = MOVE_ORDER.indexOf(currentMove) + 1;
-		return MOVE_ORDER[nextMoveIndex] ?? MOVE_ORDER[0];
+		const slicedMoveOrderList = MOVE_ORDER.slice(0, playersCount);
+		const nextMoveIndex = slicedMoveOrderList.indexOf(currentMove) + 1;
+		return slicedMoveOrderList[nextMoveIndex] ?? slicedMoveOrderList[0];
 	};
 
 	const handleClickCell = (index: number) => {
@@ -27,7 +29,7 @@ export const useGameField = () => {
 			}
 			return {
 				...state,
-				currentMove: getNextMove(state.currentMove),
+				currentMove: getNextMove(state.currentMove, playersCount),
 				cells: state.cells.map((symbol, id) =>
 					id === index ? state.currentMove : symbol
 				),
@@ -38,7 +40,7 @@ export const useGameField = () => {
 	return {
 		cells,
 		currentMove,
-		nextMove: getNextMove(currentMove),
+		nextMove: getNextMove(currentMove, playersCount),
 		handleClickCell,
 	};
 };
