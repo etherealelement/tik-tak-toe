@@ -1,28 +1,63 @@
-import React, {FC} from 'react';
-import {User} from "@/entities/user";
-import {clsx} from "clsx";
-import {Timer} from "@/shared/ui/timer";
+import React, { FC } from 'react';
+import { clsx } from 'clsx';
+import { GAME_SYMBOLS, GameSymbols } from '@/shared/constants';
+import { PlayerInfo } from './player-info/player-info';
 
 type Props = {
-    className?: string
-}
-
-export const GameInfo: FC<Props> = ({className}) => {
-    return (
-        <div className={clsx(className, "border-[1px] border-zinc-800 rounded-2xl shadow-md px-8 py-4")}>
-            <div className="flex items-center justify-between">
-                <div className="flex items-center gap-3">
-                    <User state={"player"} figure={"circle"} className={"w-44"}></User>
-                    <span className="h-6 w-px bg-zinc-800"/>
-                    <Timer start={true}>0:00</Timer>
-                </div>
-                <div className="flex items-center gap-3">
-                    <Timer start={true}>0:00</Timer>
-                    <span className="h-6 w-px bg-zinc-800"/>
-                    <User state={"player"} figure={"cross"}></User>
-                </div>
-            </div>
-        </div>
-    );
+	className?: string;
+	playersCount: number;
 };
 
+const players = [
+	{
+		id: 1,
+		name: 'Player1',
+		rating: 1230,
+		avatar: 'https://i.pravatar.cc/300?img=1',
+		symbol: GAME_SYMBOLS.CROSS,
+	},
+	{
+		id: 2,
+		name: 'Player2',
+		rating: 2230,
+		avatar: 'https://i.pravatar.cc/300?img=4',
+		symbol: GAME_SYMBOLS.CROSS,
+	},
+	{
+		id: 3,
+		name: 'Player3',
+		rating: 3230,
+		avatar: 'https://i.pravatar.cc/300?img=3',
+		symbol: GAME_SYMBOLS.CROSS,
+	},
+	{
+		id: 4,
+		name: 'Player4',
+		rating: 4230,
+		avatar: 'https://i.pravatar.cc/300?img=2',
+		symbol: GAME_SYMBOLS.CROSS,
+	},
+];
+
+export const GameInfo: FC<Props> = ({ playersCount, className, ...props }) => {
+	return (
+		<div
+			className={clsx(
+				className,
+				'border-[1px] border-zinc-800 rounded-2xl shadow-md px-8 py-4 grid grid-cols-2 gap-3'
+			)}
+			{...props}
+		>
+			{players.slice(0, playersCount).map(item => (
+				<PlayerInfo
+					key={item.id}
+					rating={item.rating}
+					name={item.name}
+					isRight={item.id % 2 === 0}
+					symbol={item.symbol}
+					avatar={item.avatar}
+				></PlayerInfo>
+			))}
+		</div>
+	);
+};

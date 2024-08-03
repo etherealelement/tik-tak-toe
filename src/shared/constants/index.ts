@@ -13,3 +13,5 @@ export const MOVE_ORDER = [
 	GAME_SYMBOLS.TRIANGLE,
 	GAME_SYMBOLS.SQUARE,
 ];
+
+export type GameSymbols = 'cross' | 'circle' | 'square' | 'triangle';
