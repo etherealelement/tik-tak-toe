@@ -11,12 +11,19 @@ interface Props
 	> {
 	className?: string;
 	children: React.ReactNode;
+	onClick?: () => void;
 }
 
-export const GameCell: FC<Props> = ({ className, children, ...props }) => {
+export const GameCell: FC<Props> = ({
+	onClick,
+	className,
+	children,
+	...props
+}) => {
 	return (
 		<>
 			<button
+				onClick={onClick}
 				className={clsx(
 					'border-[1px] border-zinc-800 -ml-px -mt-px flex items-center justify-center',
 					className
