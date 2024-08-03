@@ -25,7 +25,6 @@ export const useGameField = () => {
 			if (state.cells[index]) {
 				return state;
 			}
-
 			return {
 				...state,
 				currentMove: getNextMove(state.currentMove),
