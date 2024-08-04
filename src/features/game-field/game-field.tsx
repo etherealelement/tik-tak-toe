@@ -18,7 +18,7 @@ type Props = {
 };
 
 export const GameField: FC<Props> = ({ className, playersCount, ...props }) => {
-	const { cells, currentMove, handleClickCell, nextMove } =
+	const { cells, currentMove, handleClickCell, nextMove, winnerSequence } =
 		useGameField(playersCount);
 
 	const actions = (
@@ -43,7 +43,11 @@ export const GameField: FC<Props> = ({ className, playersCount, ...props }) => {
 				></GameMoveInfo>
 				<GameGrid>
 					{cells.map((symbol, index) => (
-						<GameCell key={index} onClick={() => handleClickCell(index)}>
+						<GameCell
+							key={index}
+							onClick={() => handleClickCell(index)}
+							isWinner={winnerSequence.includes(index)}
+						>
 							{symbol && <GameSymbol symbol={symbol} />}
 						</GameCell>
 					))}

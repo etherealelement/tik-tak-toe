@@ -1,7 +1,4 @@
 import React, { DetailedHTMLProps, FC } from 'react';
-import { Cell } from '@/shared/ui/cell';
-import { Circle } from '@/shared/icons/circle';
-
 import { clsx } from 'clsx';
 
 interface Props
@@ -10,6 +7,7 @@ interface Props
 		HTMLButtonElement
 	> {
 	className?: string;
+	isWinner?: boolean;
 	children: React.ReactNode;
 	onClick?: () => void;
 }
@@ -18,6 +16,7 @@ export const GameCell: FC<Props> = ({
 	onClick,
 	className,
 	children,
+	isWinner,
 	...props
 }) => {
 	return (
@@ -26,7 +25,8 @@ export const GameCell: FC<Props> = ({
 				onClick={onClick}
 				className={clsx(
 					'border-[1px] border-zinc-800 -ml-px -mt-px flex items-center justify-center',
-					className
+					className,
+					isWinner && 'bg-blue-600/10'
 				)}
 				{...props}
 			>
