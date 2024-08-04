@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { User } from '@/entities/user';
 import { GameSymbols } from '@/shared/constants';
 import { Timer } from '@/shared/ui/timer';
@@ -24,6 +24,7 @@ export const PlayerInfo: FC<Props> = ({
 	isTimerRunning,
 	...props
 }): JSX.Element => {
+	// TODO: Переделать на useRef и вынести в отдельный хук
 	const [seconds, setSeconds] = useState(60);
 	const minutesString = String(Math.floor(seconds / 60).toString()).padStart(
 		2,
