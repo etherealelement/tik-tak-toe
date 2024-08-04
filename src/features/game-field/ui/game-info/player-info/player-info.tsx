@@ -1,9 +1,9 @@
-import { useEffect, useRef, useState } from 'react';
 import { User } from '@/entities/user';
 import { GameSymbols } from '@/shared/constants';
 import { Timer } from '@/shared/ui/timer';
 import { FC } from 'react';
 import { GameSymbol } from '@/shared/ui/game-symbol';
+import { useTimer } from '../../../model/useTimer';
 
 import { clsx } from 'clsx';
 type Props = {
@@ -24,28 +24,7 @@ export const PlayerInfo: FC<Props> = ({
 	isTimerRunning,
 	...props
 }): JSX.Element => {
-	// TODO: Переделать на useRef и вынести в отдельный хук
-	const [seconds, setSeconds] = useState(60);
-	const minutesString = String(Math.floor(seconds / 60).toString()).padStart(
-		2,
-		'0'
-	);
-	const secondsString = String((seconds % 60).toString()).padStart(2, '0');
-
-	const isLowTime = seconds < 10;
-
-	useEffect(() => {
-		if (isTimerRunning) {
-			const interval = setInterval(() => {
-				setSeconds(prev => Math.max(prev - 1, 0));
-			}, 1000);
-
-			return () => {
-				clearInterval(interval);
-				setSeconds(60);
-			};
-		}
-	}, [isTimerRunning]);
+	const { isLowTime, minutesString, secondsString } = useTimer(isTimerRunning);
 
 	return (
 		<div className={clsx('flex items-center gap-3')} {...props}>
